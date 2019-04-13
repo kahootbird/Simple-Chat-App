@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Demo App</title>
+    <link href="//fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+
+
+    <div class="container">
+        <div class="messages" id="messages">
+            <ul id="messages-list"></ul>
+        </div>
+        <div class="actions">
+                <input id="message" autocomplete="off" placeholder="Type a message">
+                 <button onclick="send_clicked()">Send</button>
+            
+    </div>
+</div>
+<script>
+    var conn = new WebSocket('ws://localhost:8000');
+    function send_clicked()
+    {
+        conn.send(document.getElementById("message").value)
+    }
+    conn.onmessage = function(e) {
+    console.log(e.data)
+    document.getElementById("messages").innerHTML += e.data + "</br>"
+    }
+</script>
+
+  </body>
+</html>
